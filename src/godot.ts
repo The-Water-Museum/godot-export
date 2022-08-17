@@ -62,7 +62,8 @@ function hasExportPresets(): boolean {
 
 async function downloadGodot(): Promise<void> {
   await setupWorkingPath();
-  await Promise.all([setupTemplates(), setupExecutable()]);
+  await setupExecutable();
+  await setupTemplates();
 }
 
 async function setupWorkingPath(): Promise<void> {
