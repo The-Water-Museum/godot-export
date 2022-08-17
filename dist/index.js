@@ -4079,6 +4079,415 @@ exports.debug = debug; // for test
 
 /***/ }),
 
+/***/ 42:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   "_J": () => (/* binding */ ARCHIVE_OUTPUT),
+/* harmony export */   "UB": () => (/* binding */ ARCHIVE_ROOT_FOLDER),
+/* harmony export */   "Bl": () => (/* binding */ EXPORT_DEBUG),
+/* harmony export */   "WW": () => (/* binding */ GODOT_ARCHIVE_PATH),
+/* harmony export */   "pT": () => (/* binding */ GODOT_BUILD_PATH),
+/* harmony export */   "vE": () => (/* binding */ GODOT_CONFIG_PATH),
+/* harmony export */   "jb": () => (/* binding */ GODOT_DOWNLOAD_URL),
+/* harmony export */   "oS": () => (/* binding */ GODOT_PROJECT_FILE_PATH),
+/* harmony export */   "MT": () => (/* binding */ GODOT_PROJECT_PATH),
+/* harmony export */   "UA": () => (/* binding */ GODOT_TEMPLATES_DOWNLOAD_URL),
+/* harmony export */   "co": () => (/* binding */ GODOT_VERBOSE),
+/* harmony export */   "p3": () => (/* binding */ GODOT_WORKING_PATH),
+/* harmony export */   "_7": () => (/* binding */ RELATIVE_EXPORT_PATH),
+/* harmony export */   "Pk": () => (/* binding */ RELATIVE_PROJECT_PATH),
+/* harmony export */   "XH": () => (/* binding */ USE_PRESET_EXPORT_PATH),
+/* harmony export */   "N8": () => (/* binding */ WINE_PATH)
+/* harmony export */ });
+/* unused harmony export GENERATE_RELEASE_NOTES */
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(186);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(17);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(path__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(37);
+/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nccwpck_require__.n(os__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+const ARCHIVE_OUTPUT = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('archive_output') === 'true';
+const GENERATE_RELEASE_NOTES = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('generate_release_notes') === 'true';
+const GODOT_DOWNLOAD_URL = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('godot_executable_download_url');
+const GODOT_TEMPLATES_DOWNLOAD_URL = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('godot_export_templates_download_url');
+const RELATIVE_EXPORT_PATH = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('relative_export_path');
+const RELATIVE_PROJECT_PATH = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('relative_project_path');
+const WINE_PATH = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('wine_path');
+const USE_PRESET_EXPORT_PATH = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('use_preset_export_path') === 'true';
+const EXPORT_DEBUG = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('export_debug') === 'true';
+const GODOT_VERBOSE = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('verbose') === 'true';
+const ARCHIVE_ROOT_FOLDER = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('archive_root_folder') === 'true';
+const GODOT_WORKING_PATH = path__WEBPACK_IMPORTED_MODULE_1___default().resolve(path__WEBPACK_IMPORTED_MODULE_1___default().join(os__WEBPACK_IMPORTED_MODULE_2__.homedir(), '/.local/share/godot'));
+const GODOT_CONFIG_PATH = path__WEBPACK_IMPORTED_MODULE_1___default().resolve(path__WEBPACK_IMPORTED_MODULE_1___default().join(os__WEBPACK_IMPORTED_MODULE_2__.homedir(), '/.config/godot'));
+const GODOT_BUILD_PATH = path__WEBPACK_IMPORTED_MODULE_1___default().join(GODOT_WORKING_PATH, 'builds');
+const GODOT_ARCHIVE_PATH = path__WEBPACK_IMPORTED_MODULE_1___default().join(GODOT_WORKING_PATH, 'archives');
+const GODOT_PROJECT_PATH = path__WEBPACK_IMPORTED_MODULE_1___default().resolve(path__WEBPACK_IMPORTED_MODULE_1___default().join(RELATIVE_PROJECT_PATH));
+const GODOT_PROJECT_FILE_PATH = path__WEBPACK_IMPORTED_MODULE_1___default().join(GODOT_PROJECT_PATH, 'project.godot');
+
+
+
+/***/ }),
+
+/***/ 641:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   "z": () => (/* binding */ zipBuildResults),
+/* harmony export */   "d": () => (/* binding */ moveBuildsToExportDirectory)
+/* harmony export */ });
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(17);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(path__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_io__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(436);
+/* harmony import */ var _actions_io__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(_actions_io__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _actions_exec__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(514);
+/* harmony import */ var _actions_exec__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nccwpck_require__.n(_actions_exec__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(147);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nccwpck_require__.n(fs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(42);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(186);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+async function zipBuildResults(buildResults) {
+    _actions_core__WEBPACK_IMPORTED_MODULE_5__.startGroup('⚒️ Zipping binaries');
+    const promises = [];
+    for (const buildResult of buildResults) {
+        promises.push(zipBuildResult(buildResult));
+    }
+    await Promise.all(promises);
+    _actions_core__WEBPACK_IMPORTED_MODULE_5__.endGroup();
+}
+async function zipBuildResult(buildResult) {
+    await _actions_io__WEBPACK_IMPORTED_MODULE_1__.mkdirP(_constants__WEBPACK_IMPORTED_MODULE_4__/* .GODOT_ARCHIVE_PATH */ .WW);
+    const zipPath = path__WEBPACK_IMPORTED_MODULE_0___default().join(_constants__WEBPACK_IMPORTED_MODULE_4__/* .GODOT_ARCHIVE_PATH */ .WW, `${buildResult.sanitizedName}.zip`);
+    // mac exports a zip by default, so just move the file
+    if (buildResult.preset.platform.toLowerCase() === 'mac osx') {
+        const baseName = path__WEBPACK_IMPORTED_MODULE_0___default().basename(buildResult.preset.export_path);
+        const macPath = path__WEBPACK_IMPORTED_MODULE_0___default().join(buildResult.directory, baseName);
+        await _actions_io__WEBPACK_IMPORTED_MODULE_1__.cp(macPath, zipPath);
+    }
+    else if (!fs__WEBPACK_IMPORTED_MODULE_3__.existsSync(zipPath)) {
+        await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec)('7z', ['a', zipPath, `${buildResult.directory}${_constants__WEBPACK_IMPORTED_MODULE_4__/* .ARCHIVE_ROOT_FOLDER */ .UB ? '' : '/*'}`]);
+    }
+    buildResult.archivePath = zipPath;
+}
+async function moveBuildsToExportDirectory(buildResults, moveArchived) {
+    _actions_core__WEBPACK_IMPORTED_MODULE_5__.startGroup(`➡️ Moving exports`);
+    const promises = [];
+    for (const buildResult of buildResults) {
+        const fullExportPath = path__WEBPACK_IMPORTED_MODULE_0___default().resolve(_constants__WEBPACK_IMPORTED_MODULE_4__/* .USE_PRESET_EXPORT_PATH */ .XH
+            ? path__WEBPACK_IMPORTED_MODULE_0___default().join(_constants__WEBPACK_IMPORTED_MODULE_4__/* .GODOT_PROJECT_PATH */ .MT, path__WEBPACK_IMPORTED_MODULE_0___default().dirname(buildResult.preset.export_path))
+            : _constants__WEBPACK_IMPORTED_MODULE_4__/* .RELATIVE_EXPORT_PATH */ ._7);
+        await _actions_io__WEBPACK_IMPORTED_MODULE_1__.mkdirP(fullExportPath);
+        let promise;
+        if (moveArchived) {
+            if (!buildResult.archivePath) {
+                _actions_core__WEBPACK_IMPORTED_MODULE_5__.warning('Attempted to move export output that was not archived. Skipping');
+                continue;
+            }
+            const newArchivePath = path__WEBPACK_IMPORTED_MODULE_0___default().join(fullExportPath, path__WEBPACK_IMPORTED_MODULE_0___default().basename(buildResult.archivePath));
+            _actions_core__WEBPACK_IMPORTED_MODULE_5__.info(`Copying ${buildResult.archivePath} to ${newArchivePath}`);
+            promise = _actions_io__WEBPACK_IMPORTED_MODULE_1__.cp(buildResult.archivePath, newArchivePath);
+            buildResult.archivePath = newArchivePath;
+        }
+        else {
+            _actions_core__WEBPACK_IMPORTED_MODULE_5__.info(`Copying ${buildResult.directory} to ${fullExportPath}`);
+            promise = _actions_io__WEBPACK_IMPORTED_MODULE_1__.cp(buildResult.directory, fullExportPath, { recursive: true });
+            buildResult.directory = path__WEBPACK_IMPORTED_MODULE_0___default().join(fullExportPath, path__WEBPACK_IMPORTED_MODULE_0___default().basename(buildResult.directory));
+            buildResult.executablePath = path__WEBPACK_IMPORTED_MODULE_0___default().join(buildResult.directory, path__WEBPACK_IMPORTED_MODULE_0___default().basename(buildResult.executablePath));
+        }
+        promises.push(promise);
+    }
+    await Promise.all(promises);
+    _actions_core__WEBPACK_IMPORTED_MODULE_5__.endGroup();
+}
+
+
+
+/***/ }),
+
+/***/ 379:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   "b": () => (/* binding */ exportBuilds)
+/* harmony export */ });
+/* harmony import */ var _actions_exec__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(514);
+/* harmony import */ var _actions_exec__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_exec__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(186);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _actions_io__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(436);
+/* harmony import */ var _actions_io__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nccwpck_require__.n(_actions_io__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(17);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nccwpck_require__.n(path__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(147);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__nccwpck_require__.n(fs__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ini__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(45);
+/* harmony import */ var ini__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nccwpck_require__.n(ini__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var sanitize_filename__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(976);
+/* harmony import */ var sanitize_filename__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nccwpck_require__.n(sanitize_filename__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(42);
+
+
+
+
+
+
+
+
+const GODOT_EXECUTABLE = 'godot_executable';
+const GODOT_ZIP = 'godot.zip';
+const GODOT_TEMPLATES_FILENAME = 'godot_templates.tpz';
+async function exportBuilds() {
+    if (!hasExportPresets()) {
+        _actions_core__WEBPACK_IMPORTED_MODULE_1__.setFailed('No export_presets.cfg found. Please ensure you have defined at least one export via the Godot editor.');
+        return [];
+    }
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.startGroup('🕹️ Downloading Godot');
+    await downloadGodot();
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.endGroup();
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.startGroup('🔍 Adding Editor Settings');
+    await addEditorSettings();
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.endGroup();
+    if (_constants__WEBPACK_IMPORTED_MODULE_7__/* .WINE_PATH */ .N8) {
+        configureWindowsExport();
+    }
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.startGroup('✨ Exporting binaries');
+    const results = await doExport();
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.endGroup();
+    return results;
+}
+function hasExportPresets() {
+    try {
+        const projectPath = path__WEBPACK_IMPORTED_MODULE_3__.resolve(_constants__WEBPACK_IMPORTED_MODULE_7__/* .RELATIVE_PROJECT_PATH */ .Pk);
+        return fs__WEBPACK_IMPORTED_MODULE_4__.statSync(path__WEBPACK_IMPORTED_MODULE_3__.join(projectPath, 'export_presets.cfg')).isFile();
+    }
+    catch (e) {
+        return false;
+    }
+}
+async function downloadGodot() {
+    await setupWorkingPath();
+    await Promise.all([setupTemplates(), setupExecutable()]);
+}
+async function setupWorkingPath() {
+    await _actions_io__WEBPACK_IMPORTED_MODULE_2__.mkdirP(_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_WORKING_PATH */ .p3);
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.info(`Working path created ${_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_WORKING_PATH */ .p3}`);
+}
+async function setupTemplates() {
+    await downloadTemplates();
+    await prepareTemplates();
+}
+async function setupExecutable() {
+    await downloadExecutable();
+    await prepareExecutable();
+}
+async function downloadTemplates() {
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.info(`Downloading Godot export templates from ${_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_TEMPLATES_DOWNLOAD_URL */ .UA}`);
+    const file = path__WEBPACK_IMPORTED_MODULE_3__.join(_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_WORKING_PATH */ .p3, GODOT_TEMPLATES_FILENAME);
+    await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_0__.exec)('wget', ['-nv', _constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_TEMPLATES_DOWNLOAD_URL */ .UA, '-O', file]);
+}
+async function downloadExecutable() {
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.info(`Downloading Godot executable from ${_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_DOWNLOAD_URL */ .jb}`);
+    const file = path__WEBPACK_IMPORTED_MODULE_3__.join(_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_WORKING_PATH */ .p3, GODOT_ZIP);
+    await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_0__.exec)('wget', ['-nv', _constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_DOWNLOAD_URL */ .jb, '-O', file]);
+}
+async function prepareExecutable() {
+    const zipFile = path__WEBPACK_IMPORTED_MODULE_3__.join(_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_WORKING_PATH */ .p3, GODOT_ZIP);
+    const zipTo = path__WEBPACK_IMPORTED_MODULE_3__.join(_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_WORKING_PATH */ .p3, GODOT_EXECUTABLE);
+    await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_0__.exec)('7z', ['x', zipFile, `-o${zipTo}`, '-y']);
+    const executablePath = findGodotExecutablePath(zipTo);
+    if (!executablePath) {
+        throw new Error('Could not find Godot executable');
+    }
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.info(`Found executable at ${executablePath}`);
+    const finalGodotPath = path__WEBPACK_IMPORTED_MODULE_3__.join(path__WEBPACK_IMPORTED_MODULE_3__.dirname(executablePath), 'godot');
+    await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_0__.exec)('mv', [executablePath, finalGodotPath]);
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.addPath(path__WEBPACK_IMPORTED_MODULE_3__.dirname(finalGodotPath));
+    await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_0__.exec)('chmod', ['+x', finalGodotPath]);
+}
+async function prepareTemplates() {
+    const templateFile = path__WEBPACK_IMPORTED_MODULE_3__.join(_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_WORKING_PATH */ .p3, GODOT_TEMPLATES_FILENAME);
+    const templatesPath = path__WEBPACK_IMPORTED_MODULE_3__.join(_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_WORKING_PATH */ .p3, 'templates');
+    const tmpPath = path__WEBPACK_IMPORTED_MODULE_3__.join(_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_WORKING_PATH */ .p3, 'tmp');
+    const godotVersion = await getGodotVersion();
+    await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_0__.exec)('unzip', ['-q', templateFile, '-d', templatesPath]);
+    await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_0__.exec)('mv', [templatesPath, tmpPath]);
+    await _actions_io__WEBPACK_IMPORTED_MODULE_2__.mkdirP(templatesPath);
+    await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_0__.exec)('mv', [tmpPath, path__WEBPACK_IMPORTED_MODULE_3__.join(templatesPath, godotVersion)]);
+}
+async function getGodotVersion() {
+    let version = '';
+    const options = {
+        ignoreReturnCode: true,
+        listeners: {
+            stdout: (data) => {
+                version += data.toString();
+            },
+        },
+    };
+    await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_0__.exec)('godot', ['--version'], options);
+    version = version.trim();
+    version = version.replace('.official', '').replace(/\.[a-z0-9]{9}$/g, '');
+    if (!version) {
+        throw new Error('Godot version could not be determined.');
+    }
+    return version;
+}
+async function doExport() {
+    const buildResults = [];
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.info(`🎯 Using project file at ${_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_PROJECT_FILE_PATH */ .oS}`);
+    for (const preset of getExportPresets()) {
+        const sanitizedName = sanitize_filename__WEBPACK_IMPORTED_MODULE_6___default()(preset.name);
+        const buildDir = path__WEBPACK_IMPORTED_MODULE_3__.join(_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_BUILD_PATH */ .pT, sanitizedName);
+        let executablePath;
+        if (preset.export_path) {
+            executablePath = path__WEBPACK_IMPORTED_MODULE_3__.join(buildDir, path__WEBPACK_IMPORTED_MODULE_3__.basename(preset.export_path));
+        }
+        if (!executablePath) {
+            _actions_core__WEBPACK_IMPORTED_MODULE_1__.warning(`No file path set for preset "${preset.name}". Skipping export!`);
+            continue;
+        }
+        await _actions_io__WEBPACK_IMPORTED_MODULE_2__.mkdirP(buildDir);
+        const exportFlag = _constants__WEBPACK_IMPORTED_MODULE_7__/* .EXPORT_DEBUG */ .Bl ? '--export-debug' : '--export';
+        const args = [_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_PROJECT_FILE_PATH */ .oS, exportFlag, preset.name, executablePath];
+        if (_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_VERBOSE */ .co) {
+            args.push('--verbose');
+        }
+        const result = await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_0__.exec)('godot', args);
+        if (result !== 0) {
+            throw new Error('1 or more exports failed');
+        }
+        const directoryEntries = fs__WEBPACK_IMPORTED_MODULE_4__.readdirSync(buildDir);
+        buildResults.push({
+            preset,
+            sanitizedName,
+            executablePath,
+            directoryEntryCount: directoryEntries.length,
+            directory: buildDir,
+        });
+    }
+    return buildResults;
+}
+function configureWindowsExport() {
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.startGroup('📝 Appending Wine editor settings');
+    const rceditPath = path__WEBPACK_IMPORTED_MODULE_3__.join(__dirname, 'rcedit-x64.exe');
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.info(`Writing rcedit path to editor settings ${rceditPath}`);
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.info(`Writing wine path to editor settings ${_constants__WEBPACK_IMPORTED_MODULE_7__/* .WINE_PATH */ .N8}`);
+    const editorSettings = 'editor_settings-3.tres';
+    const editorSettingsPath = path__WEBPACK_IMPORTED_MODULE_3__.join(_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_CONFIG_PATH */ .vE, editorSettings);
+    fs__WEBPACK_IMPORTED_MODULE_4__.writeFileSync(editorSettingsPath, `export/windows/rcedit = "${rceditPath}"\n`, { flag: 'a' });
+    fs__WEBPACK_IMPORTED_MODULE_4__.writeFileSync(editorSettingsPath, `export/windows/wine = "${_constants__WEBPACK_IMPORTED_MODULE_7__/* .WINE_PATH */ .N8}"\n`, { flag: 'a' });
+    // TODO: remove this
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.info(fs__WEBPACK_IMPORTED_MODULE_4__.readFileSync(editorSettingsPath, { encoding: 'utf-8' }).toString());
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.info(`Wrote settings to ${editorSettingsPath}`);
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.endGroup();
+}
+function findGodotExecutablePath(basePath) {
+    const paths = fs__WEBPACK_IMPORTED_MODULE_4__.readdirSync(basePath);
+    const dirs = [];
+    for (const subPath of paths) {
+        const fullPath = path__WEBPACK_IMPORTED_MODULE_3__.join(basePath, subPath);
+        const stats = fs__WEBPACK_IMPORTED_MODULE_4__.statSync(fullPath);
+        if (stats.isFile() && path__WEBPACK_IMPORTED_MODULE_3__.extname(fullPath) === '.64') {
+            return fullPath;
+        }
+        else {
+            dirs.push(fullPath);
+        }
+    }
+    for (const dir of dirs) {
+        return findGodotExecutablePath(dir);
+    }
+    return undefined;
+}
+function getExportPresets() {
+    const exportPrests = [];
+    const projectPath = path__WEBPACK_IMPORTED_MODULE_3__.resolve(_constants__WEBPACK_IMPORTED_MODULE_7__/* .RELATIVE_PROJECT_PATH */ .Pk);
+    if (!hasExportPresets()) {
+        throw new Error(`Could not find export_presets.cfg in ${projectPath}`);
+    }
+    const exportFilePath = path__WEBPACK_IMPORTED_MODULE_3__.join(projectPath, 'export_presets.cfg');
+    const iniStr = fs__WEBPACK_IMPORTED_MODULE_4__.readFileSync(exportFilePath, { encoding: 'utf8' });
+    const presets = ini__WEBPACK_IMPORTED_MODULE_5__.decode(iniStr);
+    if (presets === null || presets === void 0 ? void 0 : presets.preset) {
+        for (const key in presets.preset) {
+            exportPrests.push(presets.preset[key]);
+        }
+    }
+    else {
+        _actions_core__WEBPACK_IMPORTED_MODULE_1__.warning(`No presets found in export_presets.cfg at ${projectPath}`);
+    }
+    return exportPrests;
+}
+async function addEditorSettings() {
+    const editorSettings = 'editor_settings-3.tres';
+    const editorSettingsDist = path__WEBPACK_IMPORTED_MODULE_3__.join(__dirname, editorSettings);
+    await _actions_io__WEBPACK_IMPORTED_MODULE_2__.mkdirP(_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_CONFIG_PATH */ .vE);
+    const editorSettingsPath = path__WEBPACK_IMPORTED_MODULE_3__.join(_constants__WEBPACK_IMPORTED_MODULE_7__/* .GODOT_CONFIG_PATH */ .vE, editorSettings);
+    await _actions_io__WEBPACK_IMPORTED_MODULE_2__.cp(editorSettingsDist, editorSettingsPath, { force: false });
+    _actions_core__WEBPACK_IMPORTED_MODULE_1__.info(`Wrote editor settings to ${editorSettingsPath}`);
+}
+
+
+
+/***/ }),
+
+/***/ 399:
+/***/ ((module, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+__nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__) => {
+__nccwpck_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(186);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _godot__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(379);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(42);
+/* harmony import */ var _file__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(641);
+
+
+
+
+async function main() {
+    const buildResults = await (0,_godot__WEBPACK_IMPORTED_MODULE_1__/* .exportBuilds */ .b)();
+    if (!buildResults.length) {
+        _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed('No valid export presets found, exiting.');
+        return 1;
+    }
+    if (_constants__WEBPACK_IMPORTED_MODULE_2__/* .ARCHIVE_OUTPUT */ ._J) {
+        await (0,_file__WEBPACK_IMPORTED_MODULE_3__/* .zipBuildResults */ .z)(buildResults);
+    }
+    if (_constants__WEBPACK_IMPORTED_MODULE_2__/* .RELATIVE_EXPORT_PATH */ ._7 || _constants__WEBPACK_IMPORTED_MODULE_2__/* .USE_PRESET_EXPORT_PATH */ .XH) {
+        await (0,_file__WEBPACK_IMPORTED_MODULE_3__/* .moveBuildsToExportDirectory */ .d)(buildResults, _constants__WEBPACK_IMPORTED_MODULE_2__/* .ARCHIVE_OUTPUT */ ._J);
+    }
+    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('build_directory', _constants__WEBPACK_IMPORTED_MODULE_2__/* .GODOT_BUILD_PATH */ .pT);
+    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('archive_directory', _constants__WEBPACK_IMPORTED_MODULE_2__/* .GODOT_ARCHIVE_PATH */ .WW);
+    return 0;
+}
+try {
+    await main();
+}
+catch (err) {
+    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(err.message);
+    process.exit(1);
+}
+
+__webpack_handle_async_dependencies__();
+}, 1);
+
+/***/ }),
+
 /***/ 491:
 /***/ ((module) => {
 
@@ -4216,6 +4625,80 @@ module.exports = require("util");
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/async module */
+/******/ 	(() => {
+/******/ 		var webpackThen = typeof Symbol === "function" ? Symbol("webpack then") : "__webpack_then__";
+/******/ 		var webpackExports = typeof Symbol === "function" ? Symbol("webpack exports") : "__webpack_exports__";
+/******/ 		var completeQueue = (queue) => {
+/******/ 			if(queue) {
+/******/ 				queue.forEach((fn) => (fn.r--));
+/******/ 				queue.forEach((fn) => (fn.r-- ? fn.r++ : fn()));
+/******/ 			}
+/******/ 		}
+/******/ 		var completeFunction = (fn) => (!--fn.r && fn());
+/******/ 		var queueFunction = (queue, fn) => (queue ? queue.push(fn) : completeFunction(fn));
+/******/ 		var wrapDeps = (deps) => (deps.map((dep) => {
+/******/ 			if(dep !== null && typeof dep === "object") {
+/******/ 				if(dep[webpackThen]) return dep;
+/******/ 				if(dep.then) {
+/******/ 					var queue = [];
+/******/ 					dep.then((r) => {
+/******/ 						obj[webpackExports] = r;
+/******/ 						completeQueue(queue);
+/******/ 						queue = 0;
+/******/ 					});
+/******/ 					var obj = {};
+/******/ 												obj[webpackThen] = (fn, reject) => (queueFunction(queue, fn), dep['catch'](reject));
+/******/ 					return obj;
+/******/ 				}
+/******/ 			}
+/******/ 			var ret = {};
+/******/ 								ret[webpackThen] = (fn) => (completeFunction(fn));
+/******/ 								ret[webpackExports] = dep;
+/******/ 								return ret;
+/******/ 		}));
+/******/ 		__nccwpck_require__.a = (module, body, hasAwait) => {
+/******/ 			var queue = hasAwait && [];
+/******/ 			var exports = module.exports;
+/******/ 			var currentDeps;
+/******/ 			var outerResolve;
+/******/ 			var reject;
+/******/ 			var isEvaluating = true;
+/******/ 			var nested = false;
+/******/ 			var whenAll = (deps, onResolve, onReject) => {
+/******/ 				if (nested) return;
+/******/ 				nested = true;
+/******/ 				onResolve.r += deps.length;
+/******/ 				deps.map((dep, i) => (dep[webpackThen](onResolve, onReject)));
+/******/ 				nested = false;
+/******/ 			};
+/******/ 			var promise = new Promise((resolve, rej) => {
+/******/ 				reject = rej;
+/******/ 				outerResolve = () => (resolve(exports), completeQueue(queue), queue = 0);
+/******/ 			});
+/******/ 			promise[webpackExports] = exports;
+/******/ 			promise[webpackThen] = (fn, rejectFn) => {
+/******/ 				if (isEvaluating) { return completeFunction(fn); }
+/******/ 				if (currentDeps) whenAll(currentDeps, fn, rejectFn);
+/******/ 				queueFunction(queue, fn);
+/******/ 				promise['catch'](rejectFn);
+/******/ 			};
+/******/ 			module.exports = promise;
+/******/ 			body((deps) => {
+/******/ 				if(!deps) return outerResolve();
+/******/ 				currentDeps = wrapDeps(deps);
+/******/ 				var fn, result;
+/******/ 				var promise = new Promise((resolve, reject) => {
+/******/ 					fn = () => (resolve(result = currentDeps.map((d) => (d[webpackExports]))));
+/******/ 					fn.r = 0;
+/******/ 					whenAll(currentDeps, fn, reject);
+/******/ 				});
+/******/ 				return fn.r ? promise : result;
+/******/ 			}).then(outerResolve, reject);
+/******/ 			isEvaluating = false;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
@@ -4261,349 +4744,12 @@ module.exports = require("util");
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
-"use strict";
-// ESM COMPAT FLAG
-__nccwpck_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var core = __nccwpck_require__(186);
-// EXTERNAL MODULE: ./node_modules/@actions/exec/lib/exec.js
-var exec = __nccwpck_require__(514);
-// EXTERNAL MODULE: ./node_modules/@actions/io/lib/io.js
-var io = __nccwpck_require__(436);
-// EXTERNAL MODULE: external "path"
-var external_path_ = __nccwpck_require__(17);
-var external_path_default = /*#__PURE__*/__nccwpck_require__.n(external_path_);
-// EXTERNAL MODULE: external "fs"
-var external_fs_ = __nccwpck_require__(147);
-// EXTERNAL MODULE: ./node_modules/ini/lib/ini.js
-var ini = __nccwpck_require__(45);
-// EXTERNAL MODULE: ./node_modules/sanitize-filename/index.js
-var sanitize_filename = __nccwpck_require__(976);
-var sanitize_filename_default = /*#__PURE__*/__nccwpck_require__.n(sanitize_filename);
-// EXTERNAL MODULE: external "os"
-var external_os_ = __nccwpck_require__(37);
-;// CONCATENATED MODULE: ./src/constants.ts
-
-
-
-const ARCHIVE_OUTPUT = core.getInput('archive_output') === 'true';
-const GENERATE_RELEASE_NOTES = core.getInput('generate_release_notes') === 'true';
-const GODOT_DOWNLOAD_URL = core.getInput('godot_executable_download_url');
-const GODOT_TEMPLATES_DOWNLOAD_URL = core.getInput('godot_export_templates_download_url');
-const RELATIVE_EXPORT_PATH = core.getInput('relative_export_path');
-const RELATIVE_PROJECT_PATH = core.getInput('relative_project_path');
-const WINE_PATH = core.getInput('wine_path');
-const USE_PRESET_EXPORT_PATH = core.getInput('use_preset_export_path') === 'true';
-const EXPORT_DEBUG = core.getInput('export_debug') === 'true';
-const GODOT_VERBOSE = core.getInput('verbose') === 'true';
-const ARCHIVE_ROOT_FOLDER = core.getInput('archive_root_folder') === 'true';
-const GODOT_WORKING_PATH = external_path_default().resolve(external_path_default().join(external_os_.homedir(), '/.local/share/godot'));
-const GODOT_CONFIG_PATH = external_path_default().resolve(external_path_default().join(external_os_.homedir(), '/.config/godot'));
-const GODOT_BUILD_PATH = external_path_default().join(GODOT_WORKING_PATH, 'builds');
-const GODOT_ARCHIVE_PATH = external_path_default().join(GODOT_WORKING_PATH, 'archives');
-const GODOT_PROJECT_PATH = external_path_default().resolve(external_path_default().join(RELATIVE_PROJECT_PATH));
-const GODOT_PROJECT_FILE_PATH = external_path_default().join(GODOT_PROJECT_PATH, 'project.godot');
-
-
-;// CONCATENATED MODULE: ./src/godot.ts
-
-
-
-
-
-
-
-
-const GODOT_EXECUTABLE = 'godot_executable';
-const GODOT_ZIP = 'godot.zip';
-const GODOT_TEMPLATES_FILENAME = 'godot_templates.tpz';
-async function exportBuilds() {
-    if (!hasExportPresets()) {
-        core.setFailed('No export_presets.cfg found. Please ensure you have defined at least one export via the Godot editor.');
-        return [];
-    }
-    core.startGroup('🕹️ Download Godot');
-    await downloadGodot();
-    core.endGroup();
-    core.startGroup('🔍 Adding Editor Settings');
-    await addEditorSettings();
-    core.endGroup();
-    if (WINE_PATH) {
-        configureWindowsExport();
-    }
-    core.startGroup('✨ Export binaries');
-    const results = await doExport();
-    core.endGroup();
-    return results;
-}
-function hasExportPresets() {
-    try {
-        const projectPath = external_path_.resolve(RELATIVE_PROJECT_PATH);
-        return external_fs_.statSync(external_path_.join(projectPath, 'export_presets.cfg')).isFile();
-    }
-    catch (e) {
-        return false;
-    }
-}
-async function downloadGodot() {
-    await setupWorkingPath();
-    await Promise.all([setupTemplates(), setupExecutable()]);
-}
-async function setupWorkingPath() {
-    await io.mkdirP(GODOT_WORKING_PATH);
-    core.info(`Working path created ${GODOT_WORKING_PATH}`);
-}
-async function setupTemplates() {
-    await downloadTemplates();
-    await prepareTemplates();
-}
-async function setupExecutable() {
-    await downloadExecutable();
-    await prepareExecutable();
-}
-async function downloadTemplates() {
-    core.info(`Downloading Godot export templates from ${GODOT_TEMPLATES_DOWNLOAD_URL}`);
-    const file = external_path_.join(GODOT_WORKING_PATH, GODOT_TEMPLATES_FILENAME);
-    await (0,exec.exec)('wget', ['-nv', GODOT_TEMPLATES_DOWNLOAD_URL, '-O', file]);
-}
-async function downloadExecutable() {
-    core.info(`Downloading Godot executable from ${GODOT_DOWNLOAD_URL}`);
-    const file = external_path_.join(GODOT_WORKING_PATH, GODOT_ZIP);
-    await (0,exec.exec)('wget', ['-nv', GODOT_DOWNLOAD_URL, '-O', file]);
-}
-async function prepareExecutable() {
-    const zipFile = external_path_.join(GODOT_WORKING_PATH, GODOT_ZIP);
-    const zipTo = external_path_.join(GODOT_WORKING_PATH, GODOT_EXECUTABLE);
-    await (0,exec.exec)('7z', ['x', zipFile, `-o${zipTo}`, '-y']);
-    const executablePath = findGodotExecutablePath(zipTo);
-    if (!executablePath) {
-        throw new Error('Could not find Godot executable');
-    }
-    core.info(`Found executable at ${executablePath}`);
-    const finalGodotPath = external_path_.join(external_path_.dirname(executablePath), 'godot');
-    await (0,exec.exec)('mv', [executablePath, finalGodotPath]);
-    core.addPath(external_path_.dirname(finalGodotPath));
-    await (0,exec.exec)('chmod', ['+x', finalGodotPath]);
-}
-async function prepareTemplates() {
-    const templateFile = external_path_.join(GODOT_WORKING_PATH, GODOT_TEMPLATES_FILENAME);
-    const templatesPath = external_path_.join(GODOT_WORKING_PATH, 'templates');
-    const tmpPath = external_path_.join(GODOT_WORKING_PATH, 'tmp');
-    const godotVersion = await getGodotVersion();
-    await (0,exec.exec)('unzip', ['-q', templateFile, '-d', GODOT_WORKING_PATH]);
-    await (0,exec.exec)('mv', [templatesPath, tmpPath]);
-    await io.mkdirP(templatesPath);
-    await (0,exec.exec)('mv', [tmpPath, external_path_.join(templatesPath, godotVersion)]);
-}
-async function getGodotVersion() {
-    let version = '';
-    const options = {
-        ignoreReturnCode: true,
-        listeners: {
-            stdout: (data) => {
-                version += data.toString();
-            },
-        },
-    };
-    await (0,exec.exec)('godot', ['--version'], options);
-    version = version.trim();
-    version = version.replace('.official', '').replace(/\.[a-z0-9]{9}$/g, '');
-    if (!version) {
-        throw new Error('Godot version could not be determined.');
-    }
-    return version;
-}
-async function doExport() {
-    const buildResults = [];
-    core.info(`🎯 Using project file at ${GODOT_PROJECT_FILE_PATH}`);
-    for (const preset of getExportPresets()) {
-        const sanitizedName = sanitize_filename_default()(preset.name);
-        const buildDir = external_path_.join(GODOT_BUILD_PATH, sanitizedName);
-        let executablePath;
-        if (preset.export_path) {
-            executablePath = external_path_.join(buildDir, external_path_.basename(preset.export_path));
-        }
-        if (!executablePath) {
-            core.warning(`No file path set for preset "${preset.name}". Skipping export!`);
-            continue;
-        }
-        await io.mkdirP(buildDir);
-        const exportFlag = EXPORT_DEBUG ? '--export-debug' : '--export';
-        const args = [GODOT_PROJECT_FILE_PATH, exportFlag, preset.name, executablePath];
-        if (GODOT_VERBOSE) {
-            args.push('--verbose');
-        }
-        const result = await (0,exec.exec)('godot', args);
-        if (result !== 0) {
-            throw new Error('1 or more exports failed');
-        }
-        const directoryEntries = external_fs_.readdirSync(buildDir);
-        buildResults.push({
-            preset,
-            sanitizedName,
-            executablePath,
-            directoryEntryCount: directoryEntries.length,
-            directory: buildDir,
-        });
-    }
-    return buildResults;
-}
-function configureWindowsExport() {
-    core.startGroup('📝 Appending Wine editor settings');
-    const rceditPath = external_path_.join(__dirname, 'rcedit-x64.exe');
-    core.info(`Writing rcedit path to editor settings ${rceditPath}`);
-    core.info(`Writing wine path to editor settings ${WINE_PATH}`);
-    const editorSettings = 'editor_settings-3.tres';
-    const editorSettingsPath = external_path_.join(GODOT_CONFIG_PATH, editorSettings);
-    external_fs_.writeFileSync(editorSettingsPath, `export/windows/rcedit = "${rceditPath}"\n`, { flag: 'a' });
-    external_fs_.writeFileSync(editorSettingsPath, `export/windows/wine = "${WINE_PATH}"\n`, { flag: 'a' });
-    // TODO: remove this
-    core.info(external_fs_.readFileSync(editorSettingsPath, { encoding: 'utf-8' }).toString());
-    core.info(`Wrote settings to ${editorSettingsPath}`);
-    core.endGroup();
-}
-function findGodotExecutablePath(basePath) {
-    const paths = external_fs_.readdirSync(basePath);
-    const dirs = [];
-    for (const subPath of paths) {
-        const fullPath = external_path_.join(basePath, subPath);
-        const stats = external_fs_.statSync(fullPath);
-        if (stats.isFile() && external_path_.extname(fullPath) === '.64') {
-            return fullPath;
-        }
-        else {
-            dirs.push(fullPath);
-        }
-    }
-    for (const dir of dirs) {
-        return findGodotExecutablePath(dir);
-    }
-    return undefined;
-}
-function getExportPresets() {
-    const exportPrests = [];
-    const projectPath = external_path_.resolve(RELATIVE_PROJECT_PATH);
-    if (!hasExportPresets()) {
-        throw new Error(`Could not find export_presets.cfg in ${projectPath}`);
-    }
-    const exportFilePath = external_path_.join(projectPath, 'export_presets.cfg');
-    const iniStr = external_fs_.readFileSync(exportFilePath, { encoding: 'utf8' });
-    const presets = ini.decode(iniStr);
-    if (presets === null || presets === void 0 ? void 0 : presets.preset) {
-        for (const key in presets.preset) {
-            exportPrests.push(presets.preset[key]);
-        }
-    }
-    else {
-        core.warning(`No presets found in export_presets.cfg at ${projectPath}`);
-    }
-    return exportPrests;
-}
-async function addEditorSettings() {
-    const editorSettings = 'editor_settings-3.tres';
-    const editorSettingsDist = external_path_.join(__dirname, editorSettings);
-    await io.mkdirP(GODOT_CONFIG_PATH);
-    const editorSettingsPath = external_path_.join(GODOT_CONFIG_PATH, editorSettings);
-    await io.cp(editorSettingsDist, editorSettingsPath, { force: false });
-    core.info(`Wrote editor settings to ${editorSettingsPath}`);
-}
-
-
-;// CONCATENATED MODULE: ./src/file.ts
-
-
-
-
-
-
-async function zipBuildResults(buildResults) {
-    core.startGroup('⚒️ Zipping binaries');
-    const promises = [];
-    for (const buildResult of buildResults) {
-        promises.push(zipBuildResult(buildResult));
-    }
-    await Promise.all(promises);
-    core.endGroup();
-}
-async function zipBuildResult(buildResult) {
-    await io.mkdirP(GODOT_ARCHIVE_PATH);
-    const zipPath = external_path_default().join(GODOT_ARCHIVE_PATH, `${buildResult.sanitizedName}.zip`);
-    // mac exports a zip by default, so just move the file
-    if (buildResult.preset.platform.toLowerCase() === 'mac osx') {
-        const baseName = external_path_default().basename(buildResult.preset.export_path);
-        const macPath = external_path_default().join(buildResult.directory, baseName);
-        await io.cp(macPath, zipPath);
-    }
-    else if (!external_fs_.existsSync(zipPath)) {
-        await (0,exec.exec)('7z', ['a', zipPath, `${buildResult.directory}${ARCHIVE_ROOT_FOLDER ? '' : '/*'}`]);
-    }
-    buildResult.archivePath = zipPath;
-}
-async function moveBuildsToExportDirectory(buildResults, moveArchived) {
-    core.startGroup(`➡️ Moving exports`);
-    const promises = [];
-    for (const buildResult of buildResults) {
-        const fullExportPath = external_path_default().resolve(USE_PRESET_EXPORT_PATH
-            ? external_path_default().join(GODOT_PROJECT_PATH, external_path_default().dirname(buildResult.preset.export_path))
-            : RELATIVE_EXPORT_PATH);
-        await io.mkdirP(fullExportPath);
-        let promise;
-        if (moveArchived) {
-            if (!buildResult.archivePath) {
-                core.warning('Attempted to move export output that was not archived. Skipping');
-                continue;
-            }
-            const newArchivePath = external_path_default().join(fullExportPath, external_path_default().basename(buildResult.archivePath));
-            core.info(`Copying ${buildResult.archivePath} to ${newArchivePath}`);
-            promise = io.cp(buildResult.archivePath, newArchivePath);
-            buildResult.archivePath = newArchivePath;
-        }
-        else {
-            core.info(`Copying ${buildResult.directory} to ${fullExportPath}`);
-            promise = io.cp(buildResult.directory, fullExportPath, { recursive: true });
-            buildResult.directory = external_path_default().join(fullExportPath, external_path_default().basename(buildResult.directory));
-            buildResult.executablePath = external_path_default().join(buildResult.directory, external_path_default().basename(buildResult.executablePath));
-        }
-        promises.push(promise);
-    }
-    await Promise.all(promises);
-    core.endGroup();
-}
-
-
-;// CONCATENATED MODULE: ./src/main.ts
-
-
-
-
-async function main() {
-    const buildResults = await exportBuilds();
-    if (!buildResults.length) {
-        core.setFailed('No valid export presets found, exiting.');
-        return 1;
-    }
-    if (ARCHIVE_OUTPUT) {
-        await zipBuildResults(buildResults);
-    }
-    if (RELATIVE_EXPORT_PATH || USE_PRESET_EXPORT_PATH) {
-        await moveBuildsToExportDirectory(buildResults, ARCHIVE_OUTPUT);
-    }
-    core.setOutput('build_directory', GODOT_BUILD_PATH);
-    core.setOutput('archive_directory', GODOT_ARCHIVE_PATH);
-    return 0;
-}
-// eslint-disable-next-line github/no-then
-main().catch(err => {
-    core.setFailed(err.message);
-    process.exit(1);
-});
-
-})();
-
-module.exports = __webpack_exports__;
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module used 'module' so it can't be inlined
+/******/ 	var __webpack_exports__ = __nccwpck_require__(399);
+/******/ 	module.exports = __webpack_exports__;
+/******/ 	
 /******/ })()
 ;
