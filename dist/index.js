@@ -4366,7 +4366,8 @@ async function prepareTemplates() {
     await _actions_io__WEBPACK_IMPORTED_MODULE_2__.mkdirP(templatesPath);
     await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_1__.exec)('unzip', ['-q', templateFile, '-d', templatesPath]);
     await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_1__.exec)('mv', [templatesPath, tmpPath]);
-    await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_1__.exec)('mv', [tmpPath, path__WEBPACK_IMPORTED_MODULE_5__.join(templatesPath)]);
+    await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_1__.exec)('mv', [tmpPath, templatesPath]);
+    await (0,_actions_exec__WEBPACK_IMPORTED_MODULE_1__.exec)('ls', [templatesPath]);
 }
 async function getGodotVersion() {
     let version = '';
